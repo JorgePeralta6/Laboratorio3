@@ -1,1 +1,4 @@
+Main.class
+org\jorgeperalta\webapp\model\Producto.class
 org\jorgeperalta\webapp\servlet\ProductoServlet.class
+org\jorgeperalta\webapp\util\JPAUtil.class
