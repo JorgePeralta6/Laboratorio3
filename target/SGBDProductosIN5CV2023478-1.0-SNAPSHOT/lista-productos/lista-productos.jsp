@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import = "java.util.List" %>
+<%@page import= "org.jorgeperalta.webapp.model.Producto"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,7 +12,7 @@
     <body>
         <nav class="navbar navbar-dark bg-dark fixed-top position-relative">
             <div class="container-fluid">
-                <a class="navbar-brand" href="../index.jsp">Sistema de gestion de Productos</a>
+                <a class="navbar-brand" href="./index.jsp">Sistema de gestion de Productos</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -22,13 +24,13 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link" href="../index.jsp">Inicio</a>
+                                <a class="nav-link" href="./index.jsp">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../formulario-productos/formulario-productos.jsp">Formulario de productos</a>
+                                <a class="nav-link" href="./formulario-productos/formulario-productos.jsp">Formulario de productos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">Lista de productos</a>
+                                <a class="nav-link active" href="/producto-servlet">Lista de productos</a>
                             </li>
                         </ul>
                     </div>
@@ -47,28 +49,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <% List<Producto> productos = (List)request.getAttribute("productos");%>
+                    <%for(Producto producto:productos){ %>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Helado de chocolate</td>
-                        <td>Sarita</td>
-                        <td>Q9.00</td>
-                        <td>Rico helado con sabor a chocolate</td>
+                        <th scope="row"><%=producto.getProductoId()%></th>
+                        <th scope="row"><%=producto.getNombreProducto()%></th>
+                        <th scope="row"><%=producto.getMarcaProducto()%></th>
+                        <th scope="row"><%=producto.getDescripcionProducto()%></th>
+                        <th scope="row"><%=producto.getPrecioProducto()%></th>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jugo De Naranja</td>
-                        <td>La Granja</td>
-                        <td>Q16.00</td>
-                        <td>Jugo de naranja con pulpa</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td >Desodorante</td>
-                        <td>Nivea</td>
-                        <td>Q12.00</td>
-                        <td>Desplama un gran olor</td>
-                    </tr>
+                      <%  } %>
                 </tbody>
+                
             </table>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
