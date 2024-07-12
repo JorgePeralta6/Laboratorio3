@@ -30,7 +30,7 @@
                                 <a class="nav-link active" aria-current="page" href="./formulario-productos/formulario-productos.jsp">Formulario de productos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../lista-productos/lista-productos.jsp">Lista de productos</a>
+                                <a class="nav-link" href="./producto-servlet">Lista de productos</a>
                             </li>
                         </ul>
                     </div>
@@ -39,6 +39,7 @@
         </nav>
         <div class="container text-center">
             <h1>El producto llego con exito</h1>
+            <% String mensaje = (String)request.getAttribute("mensaje"); %>
             <% ArrayList<String> datosProducto = (ArrayList) request.getAttribute("datosProducto"); %>
             <% if (datosProducto != null) { %>
             <% for (String producto : datosProducto) {%>
@@ -46,6 +47,7 @@
                 <li class="list-unstyled"><%=producto%></li>
             </ul>
             <%}%>
+             <h1><%=mensaje%></h1> 
             <%}%>
         </div>
         <div class="container mt-5 w-50">

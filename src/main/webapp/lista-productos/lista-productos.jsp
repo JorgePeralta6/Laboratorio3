@@ -50,6 +50,7 @@
                 </thead>
                 <tbody>
                     <% List<Producto> productos = (List)request.getAttribute("productos");%>
+                    
                     <%for(Producto producto:productos){ %>
                     <tr>
                         <th scope="row"><%=producto.getProductoId()%></th>

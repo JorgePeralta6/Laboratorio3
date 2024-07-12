@@ -17,23 +17,24 @@ import org.jorgeperalta.webapp.service.ProductoService;
 public class ProductoServlet extends HttpServlet {
 
     private ProductoService productoService;
-    
+
     @Override
-    public void init() throws ServletException{
+    public void init() throws ServletException {
         super.init();
         this.productoService = new ProductoService();
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Producto> productos = productoService.listarProductos();
-        req.setAttribute("producto", productos);
+        req.setAttribute("productos", productos);
         req.getRequestDispatcher("./lista-productos/lista-productos.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> datosProducto = new ArrayList<>();
+        String mensaje = "";
 
         String nombreProducto = req.getParameter("nombreProducto");
         String marcaProducto = req.getParameter("marcaProducto");
@@ -44,9 +45,22 @@ public class ProductoServlet extends HttpServlet {
         datosProducto.add(marcaProducto);
         datosProducto.add(descripcionProducto);
         datosProducto.add("Q." + precioProducto);
+        
+        if(nombreProducto.isEmpty()){
+           mensaje = "!Error! El campo del nombre esta vacio";
+        } else if(marcaProducto.isEmpty()){
+           mensaje = "!Error! El campo del marca esta vacio";  
+        } else if(descripcionProducto.isEmpty()){
+           mensaje = "!Error! El campo de la descripcion esta vacio";
+        } else if(precioProducto.isEmpty()){
+           mensaje = "!Error! El campo del precio esta vacio";
+        } else{
+            mensaje = "Los datos fueron enviado con exito";
+        }
 
+        req.setAttribute("mensaje", mensaje);
         req.setAttribute("datosProducto", datosProducto);
-       
+
         getServletContext().getRequestDispatcher("/formulario-productos/formulario-productos.jsp").forward(req, resp);
     }
 
