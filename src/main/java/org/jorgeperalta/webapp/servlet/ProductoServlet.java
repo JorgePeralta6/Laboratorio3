@@ -33,7 +33,14 @@ public class ProductoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<String> datosProducto = new ArrayList<>();
+        String path = req.getPathInfo();
+        if (path == null || path.equals("/")) {
+            agregarProducto(req, resp);
+        } else {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+
+        }
+        /*List<String> datosProducto = new ArrayList<>();
         String mensaje = "";
 
         String nombreProducto = req.getParameter("nombreProducto");
@@ -61,7 +68,18 @@ public class ProductoServlet extends HttpServlet {
         req.setAttribute("mensaje", mensaje);
         req.setAttribute("datosProducto", datosProducto);
 
-        getServletContext().getRequestDispatcher("/formulario-productos/formulario-productos.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/formulario-productos/formulario-productos.jsp").forward(req, resp);*/
+    }
+
+    public void agregarProducto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String nombre = req.getParameter("nombreProducto");
+        String marca = req.getParameter("marcaProducto");
+        String descripcionProducto = req.getParameter("descripcionProducto");
+        double precio = Double.parseDouble(req.getParameter("precioProducto"));
+
+        productoService.agregarProducto(new Producto(nombre, marca, descripcionProducto, precio));
+
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 
 }
